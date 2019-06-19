@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>模板语法</title>
+</head>
+<body>
+  <div id="app">
+    <h2>1. 双大括号表达式</h2>
+    <p>{{msg}}</p> <!-- textContent -->
+    <p>{{msg.toUpperCase()}}</p>
+    <p v-html="msg2"></p> <!-- innerHTML -->
+    <p v-text="msg2"></p> <!-- textContent -->
+
+    <h2>2. 指令1: 强制数据绑定</h2>
+    <img v-bind:src="imgUrl" alt="" width="50px"/>
+    <img :src="imgUrl" alt="" width="50px"/>
+
+    <h2>3. 指令2: 绑定事件监听</h2>
+    <button v-on:click="callback">Button</button>
+    <button @click="callback2(msg)">Button2</button>
+  </div>
+<script src=" https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script>
+  const vm = new Vue({ // 配置对象 option
+    el: '#app',
+    data: {
+      msg: 'I Wish Your Luck',
+      msg2:'<a href="http://baidu.com">Baidu</a>',
+      imgUrl: 'https://cn.vuejs.org/images/logo.png'
+    },
+    methods: {
+      callback () {
+        alert('Yep~ Click-Button!')
+      },
+      callback2 (content) {
+        alert(`${content}`)
+      }
+    },
+  })
+</script>
+</body>
+</html>
