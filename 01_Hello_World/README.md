@@ -11,6 +11,7 @@
 - 理解`vue`的`mvvm`实现
 
 下图展示 `MVVM`
+
 ![Vue-MVVM](./Vue.gif)
 
 ## MVVM
