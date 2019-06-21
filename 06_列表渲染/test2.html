@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06_列表渲染</title>
+  <style>
+
+  </style>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="searchName">
+    <ul>
+      <li v-for="(person, index) in filterPersons" :key="index">
+        {{index}} --- {{person.name}} --- {{person.age}}
+      </li>
+    </ul>
+
+    <button @click="setOrderType(1)">年龄升序</button>
+    <button @click="setOrderType(2)">年龄降序</button>
+    <button @click="setOrderType(0)">默认排序</button>
+  </div>
+
+<script src=" https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script>
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      searchName: '',
+      orderType: 0, // 0 代表默认顺序，1代表年龄升序，2代表年龄降序
+      persons: [
+        {name: 'Meihui', age: 18},
+        {name: 'Erdan', age: 21},
+        {name: 'Kaikai', age: 19},
+        {name: 'Jiaying', age: 22},
+      ]
+    },
+    computed: {
+        filterPersons() {
+          // 取出相关数据
+          const { searchName, persons, orderType } = this
+          // 最重需要显示的数组
+          let filterPersons;
+          // 对 persons 进行过滤
+          filterPersons = persons.filter(person=> person.name.indexOf(searchName) !== -1)
+          // 排序 
+          if(orderType !== 0) {
+            filterPersons.sort(function(person1, person2) { // 如果返回负数，p1 在前，反之
+              // 1代表升序，2代表降序
+              if(orderType === 2) {
+                return person2.age - person1.age
+              } else {
+                return person1.age - person2.age
+              }
+            })
+          }
+          return filterPersons
+        }
+      },
+      methods: {
+        setOrderType(orderType) {
+          this.orderType = orderType
+        }
+      }
+  })
+</script>
+</body>
+</html>
